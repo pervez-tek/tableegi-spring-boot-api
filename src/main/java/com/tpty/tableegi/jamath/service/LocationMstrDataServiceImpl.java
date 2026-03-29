@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,5 +32,12 @@ public class LocationMstrDataServiceImpl implements LocationMstrDataService {
             throw new NoMasjidFoundException("No Locations are added");
 
         return locationDataEntityList.stream().sorted(Comparator.comparing(LocationDataEntity::getSequenceNo)).collect(Collectors.toList());
+    }
+
+    @Override
+    public LocationDataEntity findByLocationId(String locationId) {
+
+        Optional<LocationDataEntity> byId = locationMstrDataRepo.findById(UUID.fromString(locationId));
+        return byId.orElse(null);
     }
 }

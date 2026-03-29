@@ -7,6 +7,8 @@ import java.util.List;
 public interface LocationMstrDataService {
 
     public List<LocationDataEntity> findAllLocations();
+
+    public LocationDataEntity findByLocationId(String locationId);
 }
 
 

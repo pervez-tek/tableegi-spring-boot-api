@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "masjids_mstr_tbl",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "address","locationId"})})
 // you can change table name
 @EntityListeners(AuditingEntityListener.class) // ✅ enables auditing hooks
 @Data                   // Lombok: generates getters, setters, toString, equals, hashCode

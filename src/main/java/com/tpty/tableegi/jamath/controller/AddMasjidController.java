@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tpty.tableegi.jamath.dto.AddMasjidRequestDto;
 import com.tpty.tableegi.jamath.entity.AddMasjidDataEntity;
+import com.tpty.tableegi.jamath.entity.LocationDataEntity;
 import com.tpty.tableegi.jamath.exceptions.InvalidDataException;
 import com.tpty.tableegi.jamath.exceptions.NoMasjidFoundException;
 import com.tpty.tableegi.jamath.service.AddMasjidDataService;
+import com.tpty.tableegi.jamath.service.LocationMstrDataService;
 import com.tpty.tableegi.jamath.utils.AddMasjidDtoConverterToEntity;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +30,11 @@ import java.util.stream.Collectors;
 public class AddMasjidController {
 
     private AddMasjidDataService addMasjidDataService;
+    private LocationMstrDataService locationMstrDataService;
 
-    public AddMasjidController(AddMasjidDataService addMasjidDataService) {
+    public AddMasjidController(AddMasjidDataService addMasjidDataService, LocationMstrDataService locationMstrDataService) {
         this.addMasjidDataService = addMasjidDataService;
+        this.locationMstrDataService = locationMstrDataService;
     }
 
     @PostMapping("/addMasjid")
@@ -122,6 +126,8 @@ public class AddMasjidController {
     @GetMapping("/getAllMasjids")
     public ResponseEntity<List<AddMasjidRequestDto>> getAllMasjids(@RequestHeader(value = "locationId", required = false) String locationId) throws InvalidDataException {
         log.info("Get All Masjid Started ");
+        LocationDataEntity byLocationId = locationMstrDataService.findByLocationId(locationId);
+        log.info("Get All Masjid Started location" + byLocationId.getName());
         List<AddMasjidDataEntity> masjidDataEntityList = addMasjidDataService.getAllMasjids(locationId);
         if (masjidDataEntityList.isEmpty()) {
             return ResponseEntity.noContent().build(); // 204 No Content
