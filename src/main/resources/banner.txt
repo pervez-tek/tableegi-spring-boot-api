@@ -1,0 +1,16 @@
+${AnsiColor.CYAN}
+,--------.       ,--.   ,--.                    ,--.              ,--.                            ,--.  ,--.
+'--.  .--',--,--.|  |-. |  |,---.  ,---.  ,---. `--' ,-----.      |  | ,--,--.,--,--,--. ,--,--.,-'  '-.|  ,---.
+   |  |  ' ,-.  || .-. '|  | .-. :| .-. :| .-. |,--. '-----' ,--. |  |' ,-.  ||        |' ,-.  |'-.  .-'|  .-.  |
+   |  |  \ '-'  || `-' ||  \   --.\   --.' '-' '|  |         |  '-'  /\ '-'  ||  |  |  |\ '-'  |  |  |  |  | |  |
+   `--'   `--`--' `---' `--'`----' `----'.`-  / `--'          `-----'  `--`--'`--`--`--' `--`--'  `--'  `--' `--'
+                                         `---'
+
+ ${AnsiColor.DEFAULT}
+
+${AnsiColor.YELLOW}------------------------------------------------${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}  Application: Tableegi-Jamath-Markaz ${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}  Version: ${application.version}${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}  Profile: ${spring.profiles.active:default}${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}  Started at: ${date}${AnsiColor.DEFAULT}
+${AnsiColor.YELLOW}------------------------------------------------${AnsiColor.DEFAULT}

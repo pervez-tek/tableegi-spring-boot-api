@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+    <!-- ===== Externalized properties ===== -->
+    <property name="LOG_PATH" value="/opt/tableegi/logs"/>
+    <property name="APP_NAME" value="tableegi-app"/>
+
+<!--    <property name="LOG_PATH" value="${LOG_PATH:-./logs}"/>-->
+<!--    <property name="APP_NAME" value="${APP_NAME:-tableegi-app}"/>-->
+
+    <!-- ===== Console log pattern ===== -->
+    <property name="CONSOLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"/>
+
+    <!-- ===== File log pattern ===== -->
+    <property name="FILE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{50} - %msg%n"/>
+
+    <!-- ================= CONSOLE APPENDER ================= -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ================= FILE APPENDER (DAILY ROLLING) ================= -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${LOG_PATH}/${APP_NAME}.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily rollover -->
+            <fileNamePattern>
+                ${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log.gz
+            </fileNamePattern>
+
+            <!-- Keep last 30 days -->
+            <maxHistory>30</maxHistory>
+
+            <!-- Max total log size -->
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ================= LOG LEVELS ================= -->
+
+    <!-- Your application -->
+    <logger name="com.tpty.tableegi.jamath" level="INFO"/>
+
+    <!-- Spring framework -->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- Hibernate -->
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate.SQL" level="OFF"/>
+    <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>
+
+    <!-- Security -->
+    <logger name="org.springframework.security" level="WARN"/>
+
+    <!-- ================= ROOT LOGGER ================= -->
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
